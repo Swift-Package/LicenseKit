@@ -22,7 +22,7 @@ public enum LicenseTool {
 	
 	/// 签发公钥（P-256 x963，base64）
 	/// ⚠️ 分发前替换为正式公钥
-	private static let embeddedPublicKeyBase64 = "BBKVKHKU2z3JGllTfWZqzH6LdpqM9dERjOSDESTiY5Rww9ZvLvxOIj0lCj8gVbbZ6RVkedEoHN9JA+tLR+ge1MZQ="
+	private static let embeddedPublicKeyBase64 = "BAz6+Mn6ZIfH+JIiWL6J75nnsfr5R2A5KnTf/J9KQuziB4dJaAVC3ZTm3BudzxdcK65drM7UHyXqSkhro72qyRA="
 	
 	/// 当前鉴权状态
 	public private(set) static var state: State = .unconfigured

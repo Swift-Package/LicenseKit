@@ -21,8 +21,8 @@ public enum LicenseTool {
 	}
 	
 	/// 签发公钥（P-256 x963，base64）
-	/// ⚠️ 当前为开发密钥对中的公钥仅用于 Demo ,分发前必须替换为正式公钥
-	private static let embeddedPublicKeyBase64 = "BAueW+hUYk9MwUZR+Cwgqp7aBUn5EzcsXJrSavhPvZJzcjzH4qjVvVVJLl+4/9Akm/5Aj272iMQJKD3/HTK3oN4="
+	/// ⚠️ 分发前替换为正式公钥
+	private static let embeddedPublicKeyBase64 = "BBKVKHKU2z3JGllTfWZqzH6LdpqM9dERjOSDESTiY5Rww9ZvLvxOIj0lCj8gVbbZ6RVkedEoHN9JA+tLR+ge1MZQ="
 	
 	/// 当前鉴权状态
 	public private(set) static var state: State = .unconfigured

@@ -7,9 +7,7 @@
 
 import Foundation
 
-/// 许可证模型：payload 自包含，经 ECDSA P-256 签名后分发离线可验
-///
-/// 许可证字符串格式：`base64url(payloadJSON).base64url(derSignature)` 签名内容为 payload 段的 UTF-8 字节
+/// 许可证模型
 public struct License: Codable, Equatable {
 	
 	/// 绑定的 App Bundle ID（不匹配则拒绝）
@@ -56,3 +54,7 @@ enum LicenseBase64 {
 		return Data(base64Encoded: base64)
 	}
 }
+
+// MARK: - 说明
+// 许可证模型：payload 自包含，经 ECDSA P-256 签名后分发离线可验
+// 许可证字符串格式：`base64url(payloadJSON).base64url(derSignature)` 签名内容为 payload 段的 UTF-8 字节

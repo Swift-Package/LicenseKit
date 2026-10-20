@@ -2,3 +2,4 @@ build
 .swiftpm
 *.xcodeproj/project.xcworkspace/xcuserdata
 *.xcodeproj/xcuserdata
+.build

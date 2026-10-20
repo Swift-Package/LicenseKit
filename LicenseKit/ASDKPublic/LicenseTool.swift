@@ -8,8 +8,6 @@
 import Foundation
 
 /// SDK 鉴权入口
-/// 接入方在 `didFinishLaunching` 调用一次 ``configure(_:)``，之后由使用方在要校验的代码读取 ``isValid`` 就能确定是否通过
-/// 鉴权全程离线：许可证由签发方私钥签名SDK 用内嵌公钥验签无需联网
 public enum LicenseTool {
 	
 	/// 鉴权状态
@@ -59,3 +57,7 @@ public enum LicenseTool {
 		return nil
 	}
 }
+
+// MARK: - 使用说明
+/// 接入方在 `didFinishLaunching` 调用一次 ``configure(_:)``，之后由使用方在要校验的代码读取 ``isValid`` 就能确定是否通过
+/// 鉴权全程离线：许可证由签发方私钥签名SDK 用内嵌公钥验签无需联网

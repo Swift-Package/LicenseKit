@@ -11,7 +11,7 @@ import CryptoKit
 /// 许可证校验器：解析 + 验签 + Bundle ID 比对 + 过期校验，全程离线
 ///
 /// 复用方式：接入方注入**自己的**公钥与 Bundle ID，组件内不含任何厂商特定值
-public struct LicenseValidator {
+struct LicenseValidator {
 	
 	private let bundleId: String
 	private let publicKey: P256.Signing.PublicKey

@@ -35,8 +35,7 @@ public struct License: Codable, Equatable {
 	}
 }
 
-// MARK: - base64url 编解码（本模块内部工具）
-/// base64url 编解码：与标准 base64 差异为 `+/` → `-_` 且无尾部 `=` 填充
+// MARK: - base64url 编解码（本模块内部工具）与标准 base64 差异为 `+/` → `-_` 且无尾部 `=` 填充
 enum LicenseBase64 {
 	static func encode(_ data: Data) -> String {
 		data.base64EncodedString()

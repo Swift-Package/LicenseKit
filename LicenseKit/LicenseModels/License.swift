@@ -8,21 +8,17 @@
 import Foundation
 
 /// 许可证模型
-public struct License: Codable, Equatable {
+public struct License: Equatable {
 	
 	/// 绑定的 App Bundle ID
 	public let bundleId: String
-	
-	/// 客户标识
-	public let appKey: String
 	
 	/// 过期时间秒数
 	public let exp: TimeInterval
 	
 	/// 创建许可证模型
-	public init(bundleId: String, appKey: String, exp: TimeInterval) {
+	public init(bundleId: String, exp: TimeInterval) {
 		self.bundleId = bundleId
-		self.appKey = appKey
 		self.exp = exp
 	}
 	
@@ -56,5 +52,7 @@ enum LicenseBase64 {
 }
 
 // MARK: - 说明
-// 许可证模型：payload 自包含，经 ECDSA P-256 签名后分发离线可验
-// 许可证字符串格式：`base64url(payloadJSON).base64url(derSignature)` 签名内容为 payload 段的 UTF-8 字节
+// 许可证模型：与后台约定一致的紧凑二进制格式，ECDSA P-256 签名后分发离线可验
+// 许可证字符串：`base64url(data ‖ signature)` 单段无 padding
+//   data      = 版本号(1B,0x01) | exp(uint32 大端,unix秒) | bundleId长度(1B) | bundleId(UTF-8)
+//   signature = ECDSA-SHA256(私钥, data) 的 r‖s 原始编码(64B,各32B大端)，签名对象为 data 区原始字节

@@ -8,7 +8,7 @@
 import Foundation
 import CryptoKit
 
-/// 许可证校验器：解析 + 验签 + Bundle ID 比对 + 过期校验，全程离线
+/// 许可证校验器
 struct LicenseValidator {
 	
 	private let bundleId: String
@@ -29,7 +29,7 @@ struct LicenseValidator {
 	///
 	/// - Parameters:
 	///   - license: 许可证字符串（`base64url(payload).base64url(signature)`）
-	///   - date: 校验基准时间（默认当前时间；测试注入以覆盖过期边界）
+	///   - date: 校验基准时间（默认当前时间）
 	/// - Returns: 成功返回解析出的 ``License``，失败返回具体原因
 	func validate(_ license: String, at date: Date = Date()) -> Result<License, LicenseError> {
 		let segments = license.split(separator: ".", omittingEmptySubsequences: false)

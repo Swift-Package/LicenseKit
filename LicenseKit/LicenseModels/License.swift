@@ -10,10 +10,10 @@ import Foundation
 /// 许可证模型
 public struct License: Codable, Equatable {
 	
-	/// 绑定的 App Bundle ID（不匹配则拒绝）
+	/// 绑定的 App Bundle ID
 	public let bundleId: String
 	
-	/// 客户标识（签发方分配）
+	/// 客户标识
 	public let appKey: String
 	
 	/// 过期时间秒数

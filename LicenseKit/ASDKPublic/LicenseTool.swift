@@ -12,24 +12,39 @@ public enum LicenseTool {
 	
 	/// 鉴权状态
 	public enum State {
-		/// 未调用 configure 或无缓存（默认拒绝）
+		/// 未调用 configure 或无缓存
 		case unconfigured
-		/// 校验通过，附带解析出的许可证内容（可读取 appKey/有效期）
+		/// 校验通过
 		case valid(License)
-		/// 校验失败（验签失败 / Bundle ID 不匹配 / 已过期）
+		/// 校验失败
 		case invalid(LicenseError)
 	}
 	
 	/// 签发公钥（P-256 x963，base64）
-	/// 当前为后台 dev 环境公钥（与 application-dev.yml 的 godox.open-app 密钥对配套）
 	/// ⚠️ 分发前替换为正式公钥
 	private static let embeddedPublicKeyBase64 = "BBKVKHU2z3JGllTfWZqzH6LdpqM9dERjOSDESTiY5Rww9ZvLvxOIj0lCj8gVbbZ6RVkedEoHN9JA+tLR+ge1MZQ="
 	
 	/// 当前鉴权状态
 	public private(set) static var state: State = .unconfigured
 	
+	/// ⚠️检测当前是否已经验证通过
+	public static var isValid: Bool {
+		if case .valid = state {
+			return true
+		}
+		return false
+	}
+	
+	/// 校验失败的具体原因
+	public static var failureError: LicenseError? {
+		if case .invalid(let error) = state {
+			return error
+		}
+		return nil
+	}
+	
 	/// 每次启动传入许可证字符串重新验签
-	/// - Parameter license: 许可证字符串（硬编码或自家后台下发）
+	/// - Parameter license: 许可证字符串
 	public static func configure(_ license: String) {
 		guard let publicKeyData = Data(base64Encoded: embeddedPublicKeyBase64),
 			  let validator = try? LicenseValidator(publicKey: publicKeyData) else {
@@ -43,22 +58,8 @@ public enum LicenseTool {
 			state = .invalid(error)
 		}
 	}
-	
-	/// ⚠️检测当前是否已经验证通过
-	public static var isValid: Bool {
-		if case .valid = state { return true }
-		return false
-	}
-	
-	/// 校验失败的具体原因
-	public static var failureError: LicenseError? {
-		if case .invalid(let error) = state {
-			return error
-		}
-		return nil
-	}
 }
 
 // MARK: - 使用说明
-/// 接入方在 `didFinishLaunching` 调用一次 ``configure(_:)``，之后由使用方在要校验的代码读取 ``isValid`` 就能确定是否通过
-/// 鉴权全程离线：许可证由签发方私钥签名SDK 用内嵌公钥验签无需联网
+// 接入方调用一次 ``configure(_:)``，之后在要校验的代码读取 ``isValid`` 就能确定是否通过
+// 许可证由签发方私钥签名SDK 用内嵌公钥验签无需联网

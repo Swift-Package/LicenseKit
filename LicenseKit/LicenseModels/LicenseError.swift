@@ -10,10 +10,10 @@ import Foundation
 /// 许可证校验失败原因
 public enum LicenseError: Error, Equatable {
 	
-	/// 许可证格式非法（无法拆分/解码/解析 JSON）
+	/// 许可证格式非法
 	case malformed
 	
-	/// 签名校验失败（内容被篡改或非签发方所签）
+	/// 签名校验失败
 	case signatureInvalid
 	
 	/// 许可证绑定的 Bundle ID 与当前 App 不匹配
@@ -24,7 +24,6 @@ public enum LicenseError: Error, Equatable {
 }
 
 extension LicenseError: LocalizedError {
-	/// 面向用户的可读描述
 	public var errorDescription: String? {
 		switch self {
 		case .malformed: return "许可证格式非法"
